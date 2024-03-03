@@ -1,0 +1,3 @@
+deltaTime=86400          # s
+maxTime=374371200        # s
+stepsBetweenSnapshots=10

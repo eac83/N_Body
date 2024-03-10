@@ -38,22 +38,35 @@ void Star::ResetAcceleration() {
     acceleration_ = kZeroVector;
 }
 
-void Star::GetAcceleration(Star& star) {
-    double distance = sqrt(pow(star.position_[0]-position_[0], 2) + pow(star.position_[1]-position_[1], 2) + pow(star.position_[2]-position_[2], 2));
-    std::vector<double> displacement = star.position_ - position_;
-    acceleration_ += kG*star.mass_ / pow(distance, 3) * displacement;
+void Star::GetAcceleration(Star& star, const double& box_size, const double& softening_length) {
+    std::vector<double> displacement = GetDisplacement(star, box_size);
+    //std::cout << displacement[0] << ", " << displacement[1] << ", " << displacement[2] << std::endl;
+    double distance = sqrt(Dot(displacement, displacement));
+    //std::cout << distance << std::endl;
+
+    acceleration_ += kG*star.mass_ / (pow(distance, 2) + pow(softening_length, 2)) * (displacement / distance);
 }
 
 void Star::UpdateVelocity(const double& kDeltaTime) {
     velocity_ += acceleration_ * kDeltaTime;
 }
 
-void Star::UpdatePosition(const double& kDeltaTime) {
+void Star::UpdatePosition(const double& kDeltaTime, const double& box_size) {
     position_ += velocity_ * kDeltaTime;
+    for (int i=0; i<3; ++i) {
+        if (position_[i] > 0) {
+            while (position_[i] > box_size / 2) {
+                position_[i] -= box_size;
+            }
+        } else {
+            while (position_[i] < -box_size / 2) {
+                position_[i] += box_size;
+            }
+        }
+    }
 }
 
-bool Star::WriteOut(const int& snapshot) {
-    std::string filename = "../snapshots/snapshot" + std::to_string(snapshot) + ".csv";
+bool Star::WriteOut(const std::string& filename) {
     std::ofstream file(filename, std::ios::app);
     if (file.is_open()) {
         file << mass_ << ",";
@@ -72,4 +85,17 @@ bool Star::WriteOut(const int& snapshot) {
         std::cerr << "Unable to open file " << filename << " for writing." << std::endl;
         return false;
     }
+}
+
+std::vector<double> Star::GetDisplacement(Star& star, const double& box_size) {
+    std::vector<double> displacement = star.position_ - position_;
+    for (int i=0; i<3; ++i) {
+        if (displacement[i] > box_size / 2) {
+            displacement[i] -= box_size / 2;
+        }
+        if (displacement[i] < -box_size / 2) {
+            displacement[i] += box_size / 2;
+        }
+    }
+    return displacement;
 }

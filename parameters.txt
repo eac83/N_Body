@@ -1,3 +1,5 @@
 deltaTime=86400          # s
-maxTime=374371200        # s
-stepsBetweenSnapshots=10
+maxTime=3500000000        # s
+stepsBetweenSnapshots=50
+boxSize=100000000000000 # m
+softeningLength=100000000 #m

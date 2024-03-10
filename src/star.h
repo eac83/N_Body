@@ -15,10 +15,11 @@ class Star {
 
         void Print();
         void ResetAcceleration();
-        void GetAcceleration(Star& star);
+        void GetAcceleration(Star& star, const double& box_size, const double& softening_length);
         void UpdateVelocity(const double& kDeltaTime);
-        void UpdatePosition(const double& kDeltaTime);
-        bool WriteOut(const int& snapshot);
+        void UpdatePosition(const double& kDeltaTime, const double& box_size);
+        bool WriteOut(const std::string& filename);
+        std::vector<double> GetDisplacement(Star& star, const double& box_size);
     
     private:
         double mass_;

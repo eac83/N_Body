@@ -12,9 +12,55 @@
 #include <omp.h>
 #include <filesystem>
 
-int main() {
-  // Read in parameter file, parameters.txt
+void PrintHelp(const int& max_threads, const std::string& param_file, const std::string& init_file);
+
+int main(int argc, char* argv[]) {
+  // Read in flags
+  // Default flag parameters
+  int num_threads = omp_get_max_threads();
   std::string parameter_filename = "parameters.txt";
+  std::string initial_filename = "initial_conditions.csv";
+
+  for (int i = 1; i < argc; ++i) {
+    std::string arg = argv[i];
+    if (arg == "--help" || arg == "-h") {
+      PrintHelp(num_threads, parameter_filename, initial_filename);
+      return 0;
+    }
+    if (arg == "--threads" || arg == "-t") {
+      // Check if the flag exists and if the next argument is valid
+      if (i + 1 < argc) {
+        num_threads = std::stoi(argv[i + 1]);
+        if (num_threads <= 0) {
+          std::cerr << "Invalid number of threads specified!" << std::endl;
+          return 1;
+        }
+        ++i; // Move to the next argument
+      } else {
+        std::cerr << "Missing argument for --threads flag!" << std::endl;
+        return 1;
+      }
+    } else if (arg == "--parameters" || arg == "-p") {
+      if (i + 1 < argc) {
+        parameter_filename = argv[i + 1];
+      } else {
+        std::cerr << "Missing argument for --parameters flag!" << std::endl;
+        return 1;
+      }
+    } else if (arg == "--initial" || arg == "-i") {
+      if (i + 1 < argc) {
+        initial_filename = argv[i + 1];
+      } else {
+        std::cerr << "Missing argument for --initial flag!" << std::endl;
+        return 1;
+      }
+    }
+  } 
+
+  // Set the number of threads
+  omp_set_num_threads(num_threads);
+
+  // Read in parameter file, parameters.txt
   std::unordered_map<std::string, std::string> parameters = ParseParameters(parameter_filename);
 
   // Assign the parsed parameters
@@ -25,19 +71,18 @@ int main() {
   const double kSofteningLength = std::stod(parameters["softeningLength"]);
   
   // Read in initial conditions
-  std::string input_filename = "initial_conditions.csv";
-  std::ifstream file_input(input_filename);
-  if(!file_input.is_open()) {
-    std::cerr << "Faliled to open the file " << input_filename << "." << std::endl;
+  std::ifstream file_initial(initial_filename);
+  if(!file_initial.is_open()) {
+    std::cerr << "Faliled to open the file " << initial_filename << "." << std::endl;
     return 1;
   }
 
   // Create stars from initial conditions
   std::vector<Star> stars;
   std::string line;
-  std::getline(file_input, line);
+  std::getline(file_initial, line);
 
-  while (std::getline(file_input, line)) {
+  while (std::getline(file_initial, line)) {
     double m, x, y, z, vx, vy, vz, ax, ay, az;
     char comma;
     if (std::istringstream(line) >> m >> comma >> x >> comma >> y >> comma >> z >> comma >> vx >> comma >> vy >> comma >> vz >> comma >> ax >> comma >> ay >> comma >> az) {
@@ -51,7 +96,7 @@ int main() {
     }
   }
   
-  file_input.close();
+  file_initial.close();
   const int kNumberStars = stars.size();
 
   // Initialize variables for keeping track of steps.
@@ -147,4 +192,13 @@ int main() {
   std::cout << std::endl;
 
   return 0;
+}
+
+void PrintHelp(const int& max_threads, const std::string& param_file, const std::string& init_file) {
+  std::cout << "Usage: main [OPTIONS]\n"
+            << "Options:\n"
+            << "    --threads, -t <num>    Number of threads to use (default: maximum available threads (currently: " << max_threads << ")\n"
+            << "    --parameters, -p <file>    Path to parameter file (default " << param_file << ")\n"
+            << "    --initials, -i <file>    Path to initial conditions file (default" << init_file << ")\n"
+            << "    --help, -h    Display this help message and exit\n";
 }

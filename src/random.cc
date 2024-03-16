@@ -9,7 +9,7 @@
 
 int main() {
     // Read in parameter file, parameters.txt
-    std::string parameter_filename = "../parameters.txt";
+    std::string parameter_filename = "parameters.txt";
     std::unordered_map<std::string, std::string> parameters = ParseParameters(parameter_filename);
 
     // Assign the parsed parameters
@@ -33,7 +33,7 @@ int main() {
         }
         stars.emplace_back(kMass, position, kZeroVector, kZeroVector);
     }
-    std::string filename = "../initial_conditions.csv";
+    std::string filename = "initial_conditions.csv";
     std::ofstream file(filename);
     if (file.is_open()) {
         std::cout << "Writing to " << filename << std::endl;

@@ -2,16 +2,19 @@
 N-body gravity solver.
 
 # Compilation
-Move into `src` and run
-`g++ main.cc star.cc utils.cc -o main`
+Move into `N_Body` and run `make`. Executables are then found in `/bin`:
+* `main` - _N_-body code.
+* `random` - Initializes stars randomly throughout the box.
+* `lattice` - Initializes stars in a cubic lattice. throughout the box.
 
 # Usage
 ## Parameter file
 `parameters.txt`
-* `deltaTime`: time step (s)
-* `maxTime`: time code runs until (s)
+* `deltaTime`: time step (s).
+* `maxTime`: time code runs until (s).
 * `stepsBetweenSnapshots`: number of timesteps between saved snapshots.
-Provided parameter file steps one day for a total of one Jupiter year, saving snapshots every 10 days.
+* `boxSize`: size of the periodic box.
+* `softeningLength`: gravitational softening length.
 
 ## Initial conditions
 `initial_conditions.csv`
@@ -26,10 +29,15 @@ Each row contains the attributes for each star. The columns are:
 * `ax` acceleration along x-axis
 * `ay` acceleration along y-axis
 * `az` acceleration along z-axis
-Provided initial conditions represent the Sun, Earth, Mars, and Jupiter.
 
 # Analysis
 Example Python scripts for visualization and analysis in `python` directory.
+
+## `3d_plotting.py`
+Creates an animation of the box in 3*d*.
+
+## `2d_plotting.py`
+Creates an animation of the box in 2*d*, in the *x*-*y* plane.
 
 ## `plotting.py`
 Plots the Sun, Earth, Mars, Jupiter system for one Jupiter year.

@@ -9,17 +9,12 @@ Move into `N_Body` and run `make`. Executables are then found in `/bin`:
 
 # Usage
 ## `main`
-Usage: `main` [OPTIONS]
-
-Options:
-
-    `--threads`, `-t` `<num>`        Number of threads to use (default: maximum available threads)
-
-    `--parameters`, `-p` `<file>`    Path to parameter file (default: N_Body/parameters.txt)
-
-    `--initials`, `-i` `<file>`      Path to initial conditions file (default: N_Body/initial_conditions.csv)
-    
-    `--help`, `-h`                   Display this help message and exit
+Usage: `main` [OPTIONS]  
+Options:  
+    `--threads`, `-t` `<num>`        Number of threads to use (default: maximum available threads)  
+    `--parameters`, `-p` `<file>`    Path to parameter file (default: N_Body/parameters.txt)  
+    `--initials`, `-i` `<file>`      Path to initial conditions file (default: N_Body/initial_conditions.csv)  
+    `--help`, `-h`                   Display this help message and exit  
 
 ## Parameter file
 `parameters.txt`

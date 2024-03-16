@@ -197,8 +197,8 @@ int main(int argc, char* argv[]) {
 void PrintHelp(const int& max_threads, const std::string& param_file, const std::string& init_file) {
   std::cout << "Usage: main [OPTIONS]\n"
             << "Options:\n"
-            << "    --threads, -t <num>    Number of threads to use (default: maximum available threads (currently: " << max_threads << ")\n"
-            << "    --parameters, -p <file>    Path to parameter file (default " << param_file << ")\n"
-            << "    --initials, -i <file>    Path to initial conditions file (default" << init_file << ")\n"
-            << "    --help, -h    Display this help message and exit\n";
+            << "    --threads, -t <num>        Number of threads to use (default: maximum available threads, currently: " << max_threads << ")\n"
+            << "    --parameters, -p <file>    Path to parameter file (default: " << param_file << ")\n"
+            << "    --initials, -i <file>      Path to initial conditions file (default: " << init_file << ")\n"
+            << "    --help, -h                 Display this help message and exit\n";
 }

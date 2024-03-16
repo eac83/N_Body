@@ -1,5 +1,5 @@
 # N_Body
-N-body gravity solver.
+A multithreaded C++ N-body gravity solver.
 
 # Compilation
 Move into `N_Body` and run `make`. Executables are then found in `/bin`:
@@ -40,7 +40,7 @@ Creates an animation of the box in 3*d*.
 Creates an animation of the box in 2*d*, in the *x*-*y* plane.
 
 ## `plotting.py`
-Plots the Sun, Earth, Mars, Jupiter system for one Jupiter year.
+Creates an animation of the Sun, Earth, Mars, Jupiter system for one Jupiter year.
 
 ## `earth_distance.py`
 Plots the distance of Earth from the origin.

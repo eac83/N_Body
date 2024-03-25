@@ -19,6 +19,24 @@ std::vector<T> operator*(const T& s, const std::vector<T>& v) {
     return result;
 }
 
+// Scalar multiplication assignment
+template<typename T>
+std::vector<T> operator*=(const T& s, const std::vector<T>& v) {
+    std::vector<T> result;
+    result.reserve(v.size());
+
+    for (size_t i = 0; i < v.size(); ++i) {
+        v[i] *= s;
+    }
+
+    return v;
+}
+
+template<typename T>
+std::vector<T> operator*=(const std::vector<T>& v, const T& s) {
+    return s * v;
+}
+
 template<typename T>
 std::vector<T> operator*(const std::vector<T>& v, const T& s) {
     return s * v;
@@ -47,7 +65,7 @@ std::vector<T> operator/(const std::vector<T>& v, const T& s) {
 template<typename T>
 std::vector<T> operator+(const std::vector<T>& a, const std::vector<T>& b) {
     if (a.size() != b.size()) {
-        throw std::invalid_argument("Vectors was have same size for element-wise addition.");
+        throw std::invalid_argument("Vectors must have same size for element-wise addition.");
     }
 
     std::vector<T> result;
@@ -64,7 +82,7 @@ std::vector<T> operator+(const std::vector<T>& a, const std::vector<T>& b) {
 template<typename T>
 std::vector<T> operator-(const std::vector<T>& a, const std::vector<T>& b) {
     if (a.size() != b.size()) {
-        throw std::invalid_argument("Vectors was have same size for element-wise subtraction.");
+        throw std::invalid_argument("Vectors must have same size for element-wise subtraction.");
     }
 
     std::vector<T> result;
@@ -81,7 +99,7 @@ std::vector<T> operator-(const std::vector<T>& a, const std::vector<T>& b) {
 template<typename T>
 std::vector<T>& operator+=(std::vector<T>& a, const std::vector<T>& b) {
     if (a.size() != b.size()) {
-        throw std::invalid_argument("Vectors was have same size for element-wise addition assignment.");
+        throw std::invalid_argument("Vectors must have same size for element-wise addition assignment.");
     }
     for (size_t i = 0; i < a.size(); ++i) {
         a[i] += b[i];
@@ -93,7 +111,7 @@ std::vector<T>& operator+=(std::vector<T>& a, const std::vector<T>& b) {
 template<typename T>
 double Dot(const std::vector<T>& a, const std::vector<T>& b) {
     double result;
-    for (int i=0; i < a.size(); ++i) {
+    for (unsigned long i=0; i < a.size(); ++i) {
         result += a[i] * b[i];
     }
     return result;

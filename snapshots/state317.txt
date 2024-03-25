@@ -1,0 +1,3 @@
+Time=1.00038e+12
+Step=317
+ScaleFactor=0.000956833

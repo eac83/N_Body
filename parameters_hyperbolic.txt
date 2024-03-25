@@ -1,0 +1,23 @@
+### Code units
+MassUnit=1000        
+# g, [M]
+LengthUnit=100      
+# cm, [L]
+VelocityUnit=100    
+# cm s^-1, [V]
+
+### Code parameters
+TimeStep=8.64e3            
+# [L] / [V]^[-1]
+MaxTime=3.15576e7         
+# [L] / [V]^[-1]
+StepsBetweenSnapshots=50
+BoxSize=1e13             
+# [L]
+SofteningLength=10 
+# [L]
+OmegaM = 0.3153
+OmegaL = 0.6847
+h = 0.674
+InitialScaleFactor=1
+DMMass = 5.5e2

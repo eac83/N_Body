@@ -1,5 +1,28 @@
-deltaTime=86400          # s
-maxTime=35000000        # s
-stepsBetweenSnapshots=50
-boxSize=100000000000000 # m
-softeningLength=100000000 #m
+### Code units
+MassUnit=1.98847e38         
+# g, [M]
+LengthUnit=3.0857e24       
+# cm, [L]
+VelocityUnit=3.0857e21     
+# cm s^-1, [V]
+
+### Code parameters
+TimeStep=3.15576e9            
+# [L] / [V]^[-1]
+MaxTime=4.351968e13         
+# [L] / [V]^[-1]
+StepsBetweenSnapshots=1
+BoxSize=40              
+# [L]
+SofteningLength=1e-2 
+# [L]
+
+### Cosmological parameters
+OmegaM = 0.3153
+OmegaL = 0.6847
+h = 0.674
+InitialScaleFactor=0.000917
+
+### Particle parameters
+DMMass = 2.514e5
+# [M]

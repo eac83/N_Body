@@ -1,4 +1,4 @@
-#include "star.h"
+#include "particle.h"
 #include "utils.h"
 #include "constants.h"
 
@@ -15,19 +15,19 @@ int main() {
     // Assign the parsed parameters
     const double kBoxSize = std::stod(parameters["boxSize"]);
 
-    const int kNumberStars = 10;
+    const int kNumberParticles = 10;
     const double kMass = 2e30; // kg
 
-    // Create stars distributed in a 3d grid
-    std::vector<Star> stars;
+    // Create particles distributed in a 3d grid
+    std::vector<Particle> particles;
     const int kProgressBarWidth = 50;
-    const int kTotalNumberStars = pow(kNumberStars,3);
+    const int kTotalNumberParticles = pow(kNumberParticles,3);
     int step = 0;
-    for (int i=0; i<kNumberStars; ++i) {
-        for (int j=0; j<kNumberStars; ++j) {
-            for (int k=0; k<kNumberStars; ++k) {
+    for (int i=0; i<kNumberParticles; ++i) {
+        for (int j=0; j<kNumberParticles; ++j) {
+            for (int k=0; k<kNumberParticles; ++k) {
                 ++step;
-                int progress_bar_position = int(kProgressBarWidth * step / kTotalNumberStars);
+                int progress_bar_position = int(kProgressBarWidth * step / kTotalNumberParticles);
                 std::cout << "[";
                 for (int l=0; l < kProgressBarWidth; ++l) {
                     if (l < progress_bar_position) {
@@ -38,11 +38,11 @@ int main() {
                         std::cout << "-";
                     }
                 }
-                std::cout << "] " << step << "/" << kTotalNumberStars << "\r";
+                std::cout << "] " << step << "/" << kTotalNumberParticles << "\r";
                 std::cout.flush();
 
-                std::vector<double> position = {i*kBoxSize/(kNumberStars-1)-kBoxSize/2, j*kBoxSize/(kNumberStars-1)-kBoxSize/2, k*kBoxSize/(kNumberStars-1)-kBoxSize/2};
-                stars.emplace_back(kMass, position, kZeroVector, kZeroVector);
+                std::vector<double> position = {i*kBoxSize/(kNumberParticles-1)-kBoxSize/2, j*kBoxSize/(kNumberParticles-1)-kBoxSize/2, k*kBoxSize/(kNumberParticles-1)-kBoxSize/2};
+                particles.emplace_back(kMass, position, kZeroVector);
             }  
         }    
     }
@@ -56,8 +56,8 @@ int main() {
     } else {
         std::cerr << "Unable to open file " << filename << " for appending." << std::endl;
     }
-    for (unsigned long i=0; i<stars.size(); ++i) {
-        stars[i].WriteOut(filename);
+    for (unsigned long i=0; i<particles.size(); ++i) {
+        particles[i].WriteOut(filename);
     }
 
     

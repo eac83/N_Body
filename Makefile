@@ -4,9 +4,9 @@ CFLAGS = -Wall -std=c++11 -fopenmp
 SRC_DIR = src
 BIN_DIR = bin
 
-MAIN_SRC = $(SRC_DIR)/main.cc $(SRC_DIR)/star.cc $(SRC_DIR)/utils.cc
-LATTICE_SRC = $(SRC_DIR)/lattice.cc $(SRC_DIR)/star.cc $(SRC_DIR)/utils.cc
-RANDOM_SRC = $(SRC_DIR)/random.cc $(SRC_DIR)/star.cc $(SRC_DIR)/utils.cc
+MAIN_SRC = $(SRC_DIR)/main.cc $(SRC_DIR)/particle.cc $(SRC_DIR)/utils.cc $(SRC_DIR)/expansion.cc
+LATTICE_SRC = $(SRC_DIR)/lattice.cc $(SRC_DIR)/particle.cc $(SRC_DIR)/utils.cc
+RANDOM_SRC = $(SRC_DIR)/random.cc $(SRC_DIR)/particle.cc $(SRC_DIR)/utils.cc
 
 MAIN_OBJ = $(patsubst $(SRC_DIR)/%.cc,$(BIN_DIR)/%.o,$(MAIN_SRC))
 LATTICE_OBJ = $(patsubst $(SRC_DIR)/%.cc,$(BIN_DIR)/%.o,$(LATTICE_SRC))
